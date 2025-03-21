@@ -43,8 +43,11 @@ public class  TeacherService {
 
     @Transactional
     public void updateTeacher(Long teacherId,
+                              String surname,
                               String name,
-                              String email) {
+                              String email,
+                              String name_short,
+                              int training_time) {
         Teacher teacher = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new IllegalStateException("teacher with Id " + teacherId + " does not exist"));
 
@@ -60,6 +63,18 @@ public class  TeacherService {
             }
 
             teacher.setEmail(email);
+        }
+
+        if (surname != null && surname.length() > 0 && !Objects.equals(teacher.getSurname(), surname)) {
+            teacher.setSurname(surname);
+        }
+
+        if (training_time > 0) {
+            teacher.setTraining_time(training_time);
+        }
+
+        if (name_short != null && name_short.length() > 0 && !Objects.equals(teacher.getName_short(), name_short)) {
+            teacher.setName_short(name_short);
         }
     }
 }

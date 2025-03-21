@@ -37,7 +37,10 @@ public class TeacherController {
     public void updateTeacher(
             @PathVariable("teacherId") Long teacherId,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email) {
-        teacherService.updateTeacher(teacherId, name, email);
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String surname,
+            @RequestParam(required = false) String name_short,
+            @RequestParam(required = false) int training_time) {
+        teacherService.updateTeacher(teacherId, surname, name, email, name_short, training_time);
     }
 }
