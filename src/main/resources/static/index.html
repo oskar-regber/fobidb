@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranstaltungsformular</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="https://www.jaza.berlin/fileadmin/_processed_/0/0/csm_ALO-Logo-Koordinaten_625Pix_2020-01-05_farbig_57737145b7.jpg" alt="ALO-Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Veranstaltungen</a></li>
+            <li><a href="#">Berichte</a></li>
+            <li><a href="#">Anbieter</a></li>
+        </ul>
+    </nav>
+    <div class="user-menu">
+        <span class="avatar">👤</span>
+        <span class="notifications">🔔</span>
+    </div>
+</header>
+
+<main>
+    <div class="form-container">
+        <h1>Veranstaltungsdetails</h1>
+        <form id="eventForm">
+            <div class="user-info">
+                <p>Name des KuK: <span class="user-name">Maria Schmidt</span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="event-title-select">Titel der Veranstaltung</label>
+                <select id="event-title-select">
+                    <option value="">Bitte wählen oder neu erstellen</option>
+                    <option value="Digitale Kompetenz im Berufsalltag">Digitale Kompetenz im Berufsalltag</option>
+                    <option value="Grundlagen der Programmierung">Grundlagen der Programmierung</option>
+                    <option value="Kommunikation im Team">Kommunikation im Team</option>
+                    <option value="Zeitmanagement für Berufstätige">Zeitmanagement für Berufstätige</option>
+                    <option value="new">+ Neuen Titel erstellen</option>
+                </select>
+                <div id="new-title-container" style="display: none; margin-top: 10px;">
+                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="event-date">Datum</label>
+                <input type="date" id="event-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Dauer in Minuten</label>
+                <div class="number-input">
+                    <input type="number" id="duration" value="100" min="0">
+                    <div class="number-controls">
+                        <button type="button" class="plus">+</button>
+                        <button type="button" class="minus">-</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="provider">Anbieter</label>
+                <select id="provider" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="anbieter1">Technische Akademie Berlin</option>
+                    <option value="anbieter2">Bildungszentrum Mitte</option>
+                    <option value="anbieter3">Digitale Lernwelten GmbH</option>
+                    <option value="anbieter4">Kompetenzzentrum Zukunft</option>
+                </select>
+            </div>
+
+            <div class="radio-group">
+                <span class="radio-label">Bin ich als Ansprechpartner verfügbar?</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="available" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="available" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <span class="radio-label">Vorstellung auf Fachkonferenz</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="conference" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="conference" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <span class="radio-label">Angebot eine Mikroschulung</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="microtraining" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="microtraining" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Bewertung</label>
+                <div class="star-rating">
+                    <span class="star active" data-value="1">★</span>
+                    <span class="star active" data-value="2">★</span>
+                    <span class="star active" data-value="3">★</span>
+                    <span class="star active" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn primary">Speichern</button>
+                <button type="button" class="btn secondary">Abbruch</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Alle Rechte vorbehalten</p>
+</footer>
+</body>
+</html>

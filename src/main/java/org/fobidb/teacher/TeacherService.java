@@ -2,8 +2,10 @@ package org.fobidb.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -37,5 +39,27 @@ public class  TeacherService {
             throw new IllegalStateException("teacher with Id "+ teacherId + " does not exist");
         }
         teacherRepository.deleteById(teacherId);
+    }
+
+    @Transactional
+    public void updateTeacher(Long teacherId,
+                              String name,
+                              String email) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new IllegalStateException("teacher with Id " + teacherId + " does not exist"));
+
+        if (name != null && name.length() > 0 && !Objects.equals(teacher.getName(), name)) {
+            teacher.setName(name);
+        }
+
+        if (email != null && email.length() > 0 && !Objects.equals(email, teacher.getEmail())) {
+            Optional<Teacher> teacherOptional = teacherRepository.findByEmail(email);
+
+            if (teacherOptional.isPresent()) {
+                throw new IllegalStateException("email already in use");
+            }
+
+            teacher.setEmail(email);
+        }
     }
 }
