@@ -66,17 +66,29 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="provider">Anbieter</label>
-                <select id="provider" required>
-                    <option value="">Bitte wählen</option>
-                    <option value="anbieter1">Technische Akademie Berlin</option>
-                    <option value="anbieter2">Bildungszentrum Mitte</option>
-                    <option value="anbieter3">Digitale Lernwelten GmbH</option>
-                    <option value="anbieter4">Kompetenzzentrum Zukunft</option>
-                </select>
-            </div>
 
+            <div class="form-group anbieter-selection">
+                <label for="provider">Anbieter</label>
+                <select id="provider" required></select>
+            </div>
+            <script>
+                function loadAnbieter() {
+                    fetch('http://localhost:8080/api/v1/anbieter')
+                        .then(response => response.json())
+                        .then(data => {
+                            const selectBody = document.getElementById('provider');
+                            selectBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                            data.forEach(anbieter => {
+                                selectBody.appendChild(new Option(anbieter.Anbieter_Name, anbieter.Anbieter_Name));
+                            /*option.textContent = anbieter.Anbieter_Name;*/
+                            });
+                        })
+                        .catch(error => console.error('Fehler:', error));
+                }
+
+                // Lehrer laden, wenn die Seite geladen wird
+                window.onload = loadAnbieter;
+            </script>
             <div class="radio-group">
                 <span class="radio-label">Bin ich als Ansprechpartner verfügbar?</span>
                 <div class="radio-options">
