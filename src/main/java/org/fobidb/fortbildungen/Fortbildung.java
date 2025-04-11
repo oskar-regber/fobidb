@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 import java.time.format.DateTimeFormatterBuilder;
 
 @Entity
-@Table
+@Table(name = "fortbildungen")
 public class Fortbildung{
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private int Fortbildung_ID;
+    private Long Fortbildung_ID;
 
     public Fortbildung(String fortbildungstitel, String datum, String kursleiter, int dauer_min, String anbieter_Name) {
         Fortbildungstitel = fortbildungstitel;
@@ -74,11 +74,11 @@ public class Fortbildung{
 
 
 
-    public void setFortbildung_ID(int id) {
+    public void setFortbildung_ID(Long id) {
         this.Fortbildung_ID = Fortbildung_ID;
     }
 
-    public int getFortbildung_ID() {
+    public Long getFortbildung_ID() {
         return Fortbildung_ID;
     }
 }

@@ -1,7 +1,7 @@
-/*package org.fobidb.fortbildungen;
+package org.fobidb.fortbildungen;
 
-import org.fobidb.teacher.Teacher;
-import org.fobidb.teacher.TeacherRepository;
+import org.fobidb.fortbildungen.Fortbildung;
+import org.fobidb.fortbildungen.FortbildungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +22,22 @@ public class FortbildungService {
         return fortbildungRepository.findAll();
     }
 
-    public void addNewTeacher(Fortbildung fortbildung) {
+    public void addNewFortbildung(Fortbildung fortbildung) {
         Optional<Fortbildung> fortbildungOptional = fortbildungRepository.findByFobid_ID(fortbildung.getFortbildung_ID());
         if (fortbildungOptional.isPresent()) {
-            throw new IllegalStateException("email already in use");
+            throw new IllegalStateException("Fortbildung already exists");
         }
         fortbildungRepository.save(fortbildung);
     }
 
-    public void deleteTeacher(Long teacherId) {
-        boolean exists = fortbildungRepository.existsById(teacherId);
+    public void deleteFortbildung(Long FortbildungId) {
+        boolean exists = fortbildungRepository.existsById(FortbildungId);
         if (!exists) {
-            throw new IllegalStateException("teacher with Id "+ teacherId + " does not exist");
+            throw new IllegalStateException("Fortbildung with Id "+ FortbildungId + " does not exist");
         }
-        fortbildungRepository.deleteById(teacherId);
+        fortbildungRepository.deleteById(FortbildungId);
     }
+
+//    public List<Fortbildung> getFortbildung() {
+//    }
 }
-*/

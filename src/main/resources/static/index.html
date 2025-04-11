@@ -26,28 +26,34 @@
         <span class="notifications">🔔</span>
     </div>
 </header>
+<script>
+    let eventForm = document.getElementById("eventForm")
+    eventForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let anbieter = document.getElementById("provider").value;
+        let dauer_min = document.getElementById("duration").value;
+        let datum = document.getElementById("event-date").value;
+        let fortbildung_name = document.getElementById("fortbildung_name").textContent;
+    })
+</script>
+
+
 
 <main>
     <div class="form-container">
         <h1>Veranstaltungsdetails</h1>
-        <form id="eventForm">
+        <form action="" id="eventForm">
             <div class="user-info">
                 <p>Name des KuK: <span class="user-name">Maria Schmidt</span></p>
             </div>
 
             <div class="form-group">
-                <label for="event-title-select">Titel der Veranstaltung</label>
-                <select id="event-title-select">
-                    <option value="">Bitte wählen oder neu erstellen</option>
-                    <option value="Digitale Kompetenz im Berufsalltag">Digitale Kompetenz im Berufsalltag</option>
-                    <option value="Grundlagen der Programmierung">Grundlagen der Programmierung</option>
-                    <option value="Kommunikation im Team">Kommunikation im Team</option>
-                    <option value="Zeitmanagement für Berufstätige">Zeitmanagement für Berufstätige</option>
-                    <option value="new">+ Neuen Titel erstellen</option>
-                </select>
-                <div id="new-title-container" style="display: none; margin-top: 10px;">
-                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>
-                </div>
+                <label for="fortbildung_name">Titel der Veranstaltung</label>
+                <input type="text" id="fortbildung_name" name="fortbildung_name">
+<!--                <div id="new-title-container" style="display: none; margin-top: 10px;">-->
+<!--                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>-->
+<!--                </div>-->
             </div>
 
             <div class="form-group">
