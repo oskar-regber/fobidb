@@ -26,28 +26,34 @@
         <span class="notifications">🔔</span>
     </div>
 </header>
+<script>
+    let eventForm = document.getElementById("eventForm")
+    eventForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let anbieter = document.getElementById("provider").value;
+        let dauer_min = document.getElementById("duration").value;
+        let datum = document.getElementById("event-date").value;
+        let fortbildung_name = document.getElementById("fortbildung_name").textContent;
+    })
+</script>
+
+
 
 <main>
     <div class="form-container">
         <h1>Veranstaltungsdetails</h1>
-        <form id="eventForm">
+        <form action="" id="eventForm">
             <div class="user-info">
                 <p>Name des KuK: <span class="user-name">Maria Schmidt</span></p>
             </div>
 
             <div class="form-group">
-                <label for="event-title-select">Titel der Veranstaltung</label>
-                <select id="event-title-select">
-                    <option value="">Bitte wählen oder neu erstellen</option>
-                    <option value="Digitale Kompetenz im Berufsalltag">Digitale Kompetenz im Berufsalltag</option>
-                    <option value="Grundlagen der Programmierung">Grundlagen der Programmierung</option>
-                    <option value="Kommunikation im Team">Kommunikation im Team</option>
-                    <option value="Zeitmanagement für Berufstätige">Zeitmanagement für Berufstätige</option>
-                    <option value="new">+ Neuen Titel erstellen</option>
-                </select>
-                <div id="new-title-container" style="display: none; margin-top: 10px;">
-                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>
-                </div>
+                <label for="fortbildung_name">Titel der Veranstaltung</label>
+                <input type="text" id="fortbildung_name" name="fortbildung_name">
+<!--                <div id="new-title-container" style="display: none; margin-top: 10px;">-->
+<!--                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>-->
+<!--                </div>-->
             </div>
 
             <div class="form-group">
@@ -66,17 +72,29 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="provider">Anbieter</label>
-                <select id="provider" required>
-                    <option value="">Bitte wählen</option>
-                    <option value="anbieter1">Technische Akademie Berlin</option>
-                    <option value="anbieter2">Bildungszentrum Mitte</option>
-                    <option value="anbieter3">Digitale Lernwelten GmbH</option>
-                    <option value="anbieter4">Kompetenzzentrum Zukunft</option>
-                </select>
-            </div>
 
+            <div class="form-group anbieter-selection">
+                <label for="provider">Anbieter</label>
+                <select id="provider" required></select>
+            </div>
+            <script>
+                function loadAnbieter() {
+                    fetch('http://localhost:8080/api/v1/anbieter')
+                        .then(response => response.json())
+                        .then(data => {
+                            const selectBody = document.getElementById('provider');
+                            selectBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                            data.forEach(anbieter => {
+                                selectBody.appendChild(new Option(anbieter.Anbieter_Name, anbieter.Anbieter_Name));
+                            /*option.textContent = anbieter.Anbieter_Name;*/
+                            });
+                        })
+                        .catch(error => console.error('Fehler:', error));
+                }
+
+                // Lehrer laden, wenn die Seite geladen wird
+                window.onload = loadAnbieter;
+            </script>
             <div class="radio-group">
                 <span class="radio-label">Bin ich als Ansprechpartner verfügbar?</span>
                 <div class="radio-options">
