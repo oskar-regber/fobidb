@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: d.basse
+Build-Jdk: Oracle OpenJDK 24
+Implementation-Title: fobidb
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: org.fobidb
+Main-Class: ${start-class}
+

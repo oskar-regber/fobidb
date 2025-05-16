@@ -1,5 +1,6 @@
 package org.fobidb.fortbildungen;
 
+import org.fobidb.teacher.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class FortbildungController {
 
     private final FortbildungService FortbildungService;
+    private final FortbildungService fortbildungService;
 
     @Autowired
-    public FortbildungController(FortbildungService FortbildungService) {
+    public FortbildungController(FortbildungService FortbildungService, FortbildungService fortbildungService) {
         this.FortbildungService = FortbildungService;
+        this.fortbildungService = fortbildungService;
     }
 
     @GetMapping
@@ -23,7 +26,7 @@ public class FortbildungController {
         return FortbildungService.getFortbildungen();
     }
 
-    @PostMapping
+    /*@PostMapping
     public void registerNewFortbildung(
             @RequestParam(required = false) String fortbildungstitel,
             @RequestParam(required = false) String datum,
@@ -32,6 +35,12 @@ public class FortbildungController {
             @RequestParam(required = false) String anbieter_name){
         Fortbildung fortbildung = new Fortbildung(fortbildungstitel, datum, kursleiter, dauer_min, anbieter_name);
         FortbildungService.addNewFortbildung(fortbildung);
+    }*/
+
+    @PostMapping
+    public void registerNewFortbildung(@RequestBody Fortbildung fortbildung){
+        System.out.println(fortbildung.Anbieter_Name);
+        fortbildungService.addNewFortbildung(fortbildung);
     }
 
     @DeleteMapping(path = "{Fortbildung_ID}")

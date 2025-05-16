@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Lehrer anzeigen</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<h1>Liste der Lehrer</h1>
+<table id="teachersTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nachname</th>
+    <th>Vorname</th>
+    <th>Kürzel</th>
+    <th>Email</th>
+    <th>Fortbildungszeit</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Lehrer-Daten werden hier eingefügt -->
+  </tbody>
+</table>
+
+<script>
+  function loadTeachers() {
+    fetch('http://localhost:8080/api/v1/teacher')
+            .then(response => response.json())
+            .then(data => {
+              const tableBody = document.getElementById('teachersTable').getElementsByTagName('tbody')[0];
+              tableBody.innerHTML = ''; // Vorhandene Zeilen löschen
+              data.forEach(teacher => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = teacher.id;
+                row.insertCell(1).textContent = teacher.surname;
+                row.insertCell(2).textContent = teacher.name;
+                row.insertCell(3).textContent = teacher.name_short;
+                row.insertCell(4).textContent = teacher.email;
+                row.insertCell(5).textContent = teacher.training_time;
+              });
+            })
+            .catch(error => console.error('Fehler:', error));
+  }
+
+  // Lehrer laden, wenn die Seite geladen wird
+  window.onload = loadTeachers;
+</script>
+</body>
+</html>

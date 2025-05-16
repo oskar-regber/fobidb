@@ -1,5 +1,6 @@
 package org.fobidb.fortbildungen;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.format.DateTimeFormatterBuilder;
@@ -26,6 +27,7 @@ public class Fortbildung{
     public String  Datum;
     public String Kursleiter;
     public int Dauer_min;
+    @JsonProperty("anbieter_name")
     public String Anbieter_Name;
 
     public String getAnbieter_Name() {
