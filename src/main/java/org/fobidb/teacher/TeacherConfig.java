@@ -1,3 +1,4 @@
+/*
 package org.fobidb.teacher;
 
 import org.springframework.boot.CommandLineRunner;
@@ -37,4 +38,4 @@ public class TeacherConfig {
             };
         };
     }
-}
+}*/

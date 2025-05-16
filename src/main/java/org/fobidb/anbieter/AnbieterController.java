@@ -25,6 +25,7 @@ public class AnbieterController {
 
     @PostMapping
     public void registerNewAnbieter(@RequestBody Anbieter Anbieter){
+        System.out.println("Arrived" + Anbieter.toString());
         AnbieterService.addNewAnbieter(Anbieter);
     }
 

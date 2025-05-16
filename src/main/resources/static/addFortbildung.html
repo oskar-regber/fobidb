@@ -16,9 +16,9 @@
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Veranstaltungen</a></li>
-            <li><a href="#">Berichte</a></li>
-            <li><a href="#">Anbieter</a></li>
+            <li><a href="addFortbildung.html">Fortbildungen</a></li>
+            <li><a href="addTeacher.html">Lehrer</a></li>
+            <li><a href="addAnbieter.html">Anbieter</a></li>
         </ul>
     </nav>
     <div class="user-menu">
@@ -33,11 +33,8 @@
             datum: document.getElementById("event-date").value,
             kursleiter: document.getElementById("kursleiter_name").value,
             dauer_min: document.getElementById("duration").value,
-            anbieter_name: /*document.getElementById("provider").value*/ "annedoreleber",
+            anbieter_name: document.getElementById("provider").value,
         };
-
-        console.log(formData);
-        console.log("Sending JSON:", JSON.stringify(formData));
 
         fetch('http://localhost:8080/api/v1/Fortbildung', {
             method: 'POST',
@@ -79,7 +76,7 @@
             </div>
 
             <div class="form-group">
-                <label for="kursleiter_name">Titel des Kursleiters</label>
+                <label for="kursleiter_name">Name des Kursleiters</label>
                 <input type="text" id="kursleiter_name" name="kursleiter_name">
                 <!--                <div id="new-title-container" style="display: none; margin-top: 10px;">-->
                 <!--                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>-->
@@ -115,7 +112,7 @@
                             const selectBody = document.getElementById('provider');
                             selectBody.innerHTML = ''; // Vorhandene Zeilen löschen
                             data.forEach(anbieter => {
-                                selectBody.appendChild(new Option(anbieter.Anbieter_Name, anbieter.Anbieter_Name));
+                                selectBody.appendChild(new Option(anbieter.anbieter_Name, anbieter.anbieter_Name));
                             /*option.textContent = anbieter.Anbieter_Name;*/
                             });
                         })
@@ -179,7 +176,7 @@
             </div>
 
             <div class="button-group">
-                <button type="button" onclick="submitForm()">Fortbildung hinzufügen</button>
+                <button type="button" onclick="submitForm(event)">Fortbildung hinzufügen</button>
                 <button type="button" class="btn secondary">Abbruch</button>
             </div>
         </form>

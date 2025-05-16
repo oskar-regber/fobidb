@@ -1,11 +1,13 @@
 package org.fobidb.anbieter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 @Table
 public class Anbieter {
     @Id
+    @JsonProperty("anbieter_name")
     public String Anbieter_Name;
 
     public Anbieter() {

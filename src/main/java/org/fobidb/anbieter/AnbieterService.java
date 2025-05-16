@@ -12,7 +12,7 @@ import java.util.Optional;
 // Service LAYER *******************************************************
 
 @Service
-public class  AnbieterService {
+public class AnbieterService {
 
     private final AnbieterRepository AnbieterRepository;
 
@@ -46,7 +46,7 @@ public class  AnbieterService {
         Anbieter Anbieter = AnbieterRepository.findById(Anbieter_Name)
                 .orElseThrow(() -> new IllegalStateException("Anbieter with Id " + Anbieter_Name + " does not exist"));
 
-        if (Anbieter_Name != null && Anbieter_Name.length() > 0 && !Objects.equals(Anbieter.getAnbieter_Name(), Anbieter_Name)) {
+        if (!Anbieter_Name.isEmpty() && !Objects.equals(Anbieter.getAnbieter_Name(), Anbieter_Name)) {
             Anbieter.setAnbieter_Name(Anbieter_Name);
         }
     }
