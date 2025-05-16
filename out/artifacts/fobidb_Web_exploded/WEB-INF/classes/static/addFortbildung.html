@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranstaltungsformular</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="https://www.jaza.berlin/fileadmin/_processed_/0/0/csm_ALO-Logo-Koordinaten_625Pix_2020-01-05_farbig_57737145b7.jpg" alt="ALO-Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="addFortbildung.html">Fortbildungen</a></li>
+            <li><a href="addTeacher.html">Lehrer</a></li>
+            <li><a href="addAnbieter.html">Anbieter</a></li>
+        </ul>
+    </nav>
+    <div class="user-menu">
+        <span class="avatar">👤</span>
+        <span class="notifications">🔔</span>
+    </div>
+</header>
+<script>
+    function submitForm() {
+        const formData = {
+            fortbildungstitel: document.getElementById("fortbildung_name").value,
+            datum: document.getElementById("event-date").value,
+            kursleiter: document.getElementById("kursleiter_name").value,
+            dauer_min: document.getElementById("duration").value,
+            anbieter_name: document.getElementById("provider").value,
+        };
+
+        fetch('http://localhost:8080/api/v1/Fortbildung', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Fortbildung erfolgreich hinzugefügt!');
+                } else {
+                    alert('Fehler beim Hinzufügen der Fortbildung.');
+                }
+            })
+            .catch(error => console.error('Fehler:', error));
+    }
+
+
+
+</script>
+
+
+
+<main>
+    <div class="form-container">
+        <h1>Veranstaltungsdetails</h1>
+        <form action="" id="eventForm">
+            <div class="user-info">
+                <p>Name des KuK: <span class="user-name">Maria Schmidt</span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="fortbildung_name">Titel der Veranstaltung</label>
+                <input type="text" id="fortbildung_name" name="fortbildung_name">
+<!--                <div id="new-title-container" style="display: none; margin-top: 10px;">-->
+<!--                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>-->
+<!--                </div>-->
+            </div>
+
+            <div class="form-group">
+                <label for="kursleiter_name">Name des Kursleiters</label>
+                <input type="text" id="kursleiter_name" name="kursleiter_name">
+                <!--                <div id="new-title-container" style="display: none; margin-top: 10px;">-->
+                <!--                    <input type="text" id="event-title" placeholder="Neuen Titel eingeben" required>-->
+                <!--                </div>-->
+            </div>
+
+            <div class="form-group">
+                <label for="event-date">Datum</label>
+                <input type="date" id="event-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Dauer in Minuten</label>
+                <div class="number-input">
+                    <input type="number" id="duration" value="100" min="0">
+                    <div class="number-controls">
+                        <button type="button" class="plus">+</button>
+                        <button type="button" class="minus">-</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group anbieter-selection">
+                <label for="provider">Anbieter</label>
+                <select id="provider" required></select>
+            </div>
+            <script>
+                function loadAnbieter() {
+                    fetch('http://localhost:8080/api/v1/anbieter')
+                        .then(response => response.json())
+                        .then(data => {
+                            const selectBody = document.getElementById('provider');
+                            selectBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                            data.forEach(anbieter => {
+                                selectBody.appendChild(new Option(anbieter.anbieter_Name, anbieter.anbieter_Name));
+                            /*option.textContent = anbieter.Anbieter_Name;*/
+                            });
+                        })
+                        .catch(error => console.error('Fehler:', error));
+                }
+
+                // Lehrer laden, wenn die Seite geladen wird
+                window.onload = loadAnbieter;
+            </script>
+            <div class="radio-group">
+                <span class="radio-label">Bin ich als Ansprechpartner verfügbar?</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="available" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="available" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <span class="radio-label">Vorstellung auf Fachkonferenz</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="conference" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="conference" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <span class="radio-label">Angebot eine Mikroschulung</span>
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="microtraining" value="ja">
+                        <span class="radio-text">Ja</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="microtraining" value="nein" checked>
+                        <span class="radio-text">Nein</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Bewertung</label>
+                <div class="star-rating">
+                    <span class="star active" data-value="1">★</span>
+                    <span class="star active" data-value="2">★</span>
+                    <span class="star active" data-value="3">★</span>
+                    <span class="star active" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="submitForm(event)">Fortbildung hinzufügen</button>
+                <button type="button" class="btn secondary">Abbruch</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Alle Rechte vorbehalten</p>
+</footer>
+</body>
+</html>
