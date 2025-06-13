@@ -121,7 +121,10 @@
 
                 // Lehrer laden, wenn die Seite geladen wird
                 window.onload = loadAnbieter;
+
             </script>
+
+
             <div class="radio-group">
                 <span class="radio-label">Bin ich als Ansprechpartner verfügbar?</span>
                 <div class="radio-options">
@@ -179,12 +182,53 @@
                 <button type="button" onclick="submitForm(event)">Fortbildung hinzufügen</button>
                 <button type="button" class="btn secondary">Abbruch</button>
             </div>
+
+            <table id="fortbildungTable">
+                <thead>
+                    <tr>
+                        <th>Fortbildungstitel</th>
+                        <th>Datum</th>
+                        <th>Kursleiter</th>
+                        <th>Dauer</th>
+                        <th>Anbieter</th>
+                    </tr>
+                </thead>
+            </table>
         </form>
     </div>
+
+
 </main>
 
 <footer>
     <p>&copy; 2025 Alle Rechte vorbehalten</p>
 </footer>
 </body>
+
+<script>
+    function loadFortbildung() {
+        fetch('http://localhost:8080/api/v1/fortbildung')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('fortbildungTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                console.log(data);
+                data.forEach(fortbildung => {
+                    /*selectBody.appendChild(new Option(fortbildung.Fortbildungstitel, fortbildung.Datum, fortbildung.Kursleiter, ));*/
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = fortbildung.Fortbildungstitel;
+                    row.insertCell(1).textContent = fortbildung.Datum;
+                    row.insertCell(2).textContent = fortbildung.Kursleiter;
+                    row.insertCell(3).textContent = fortbildung.Dauer_min;
+                    row.insertCell(4).textContent = fortbildung.Anbieter_name;
+                    /*option.textContent = anbieter.Anbieter_Name;*/
+                });
+            })
+            .catch(error => console.error('Fehler:', error));
+    }
+
+    // Lehrer laden, wenn die Seite geladen wird
+    /*window.onload = loadFortbildung;*/
+    onload(loadFortbildung);
+</script>
 </html>

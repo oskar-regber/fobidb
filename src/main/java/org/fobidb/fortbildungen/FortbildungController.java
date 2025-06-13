@@ -9,7 +9,7 @@ import java.util.List;
 // API LAYER *******************************************************
 
 @RestController //Die Klasse ist ein Rest-Controller. Dies bedeutet, dass sie HTTP-Anfragen empfängt und HTTP-Antworten zurückgibt. Außerdem: Alle Objekte sind Beans
-@RequestMapping(path = "api/v1/Fortbildung") //Pfad im Browser
+@RequestMapping(path = "api/v1/fortbildung") //Pfad im Browser
 public class FortbildungController {
 
     private final FortbildungService FortbildungService;
